@@ -1,4 +1,4 @@
-import { container, tetraminoItems } from './constants.js'
+import { colors, container, tetraminoItems } from './constants.js'
 import { createStartMenu } from './startMenu.js'
 import { gameContent } from './constants.js'
 import { shuffle } from './utils.js'
@@ -9,6 +9,7 @@ const app = (difficult) => {
 
   const canvasTetris = document.getElementById('game-tetris');
   const contextTetris = canvasTetris.getContext('2d');
+  const startBtn = document.querySelector('.start');
   const squareSize = 32;
   let tetrminoOrder = [];
   let playArea = [];
@@ -44,6 +45,32 @@ const app = (difficult) => {
       row
     }
   }
+
+  const game = () => {
+    requestAnimationId = requestAnimationFrame(game);
+    contextTetris.clearRect(0, 0, canvasTetris.clientWidth, canvasTetris.height);
+
+    if (tetramino) {
+      if (count++ > difficult) {
+        tetramino.row++;
+        count = 0;
+      }
+    }
+
+    contextTetris.fillStyle = colors[tetramino.name];
+
+    for (let row = 0; row < tetramino.matrix.length; row++) {
+      for (let col = 0; col < tetramino.matrix[row].length; col++) {
+        if (tetramino.matrix[row][col]) {
+          contextTetris.fillRect((tetramino.col + col) * squareSize, (tetramino.row + row) * squareSize, squareSize - 1, squareSize - 1);
+        }
+      }
+    }
+  }
+
+  startBtn.addEventListener('click', () => {
+    requestAnimationId = requestAnimationFrame(game);
+  })
 }
 
 createStartMenu(app);

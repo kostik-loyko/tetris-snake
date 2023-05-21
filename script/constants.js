@@ -68,7 +68,7 @@ export const tetraminoItems = {
 
 export const colors = {
   'I': 'cyan',
-  'O': 'yellow',
+  'O': 'orange',
   'T': 'purple',
   'S': 'green',
   'Z': 'red',
