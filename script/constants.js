@@ -1,8 +1,12 @@
 export const startMenu = `<div class="game-menu">
-                    <button class="menu-btn easy">Easy</button>
-                    <button class="menu-btn normal">Normal</button>
-                    <button class="menu-btn hard">Hard</button>
-                  </div>`;
+                            <button class="menu-btn easy">Easy</button>
+                            <button class="menu-btn normal">Normal</button>
+                            <button class="menu-btn hard">Hard</button>
+                          </div>`;
+
+export const gameOver = `<div class="game-over">
+                            <b class="game-over__title">game over</b>
+                         </div>`;
 
 export const gameContent = `        <canvas width='320' height='640' id='game-tetris'></canvas>
                                     <div class="game-info">
@@ -68,7 +72,7 @@ export const tetraminoItems = {
 
 export const colors = {
   'I': 'cyan',
-  'O': 'orange',
+  'O': 'yellow',
   'T': 'purple',
   'S': 'green',
   'Z': 'red',

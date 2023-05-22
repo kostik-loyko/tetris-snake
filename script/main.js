@@ -1,7 +1,7 @@
-import { colors, container, tetraminoItems } from './constants.js'
+import { colors, container, gameOver, tetraminoItems } from './constants.js'
 import { createStartMenu } from './startMenu.js'
 import { gameContent } from './constants.js'
-import { shuffle } from './utils.js'
+import { isValidPos, rapidFallOnDawn, showOverlay, shuffle } from './utils.js'
 
 const app = (difficult) => {
   container.innerHTML = '';
@@ -27,6 +27,11 @@ const app = (difficult) => {
   let isGameOver = false;
   let requestAnimationId = null;
 
+  const showGameOver = () => {
+    container.insertAdjacentHTML('beforeend', gameOver);
+    showOverlay();
+  }
+
   function createTetramino() {
     if (tetrminoOrder.length === 0) {
       tetrminoOrder = ['L', 'J', 'S', 'Z', 'T', 'O', 'I'];
@@ -46,27 +51,66 @@ const app = (difficult) => {
     }
   }
 
+  const placeTetramino = () => {
+    for (let row = 0; row < tetramino.matrix.length; row++) {
+      for (let col = 0; col < tetramino.matrix[row].length; col++) {
+        if (tetramino.matrix[row][col]) {
+          if (tetramino.row + row < 0) {
+            return showGameOver();
+          }
+          playArea[tetramino.row + row][tetramino.col + col] = tetramino.name;
+        }
+      }
+    }
+    tetramino = createTetramino();
+  }
+
   const game = () => {
+
     requestAnimationId = requestAnimationFrame(game);
     contextTetris.clearRect(0, 0, canvasTetris.clientWidth, canvasTetris.height);
+
+    for (let row = 0; row < 20; row++) {
+      for (let col = 0; col < 10; col++) {
+        if (playArea[row][col]) {
+          const name = playArea[row][col];
+          contextTetris.fillStyle = colors[name];
+          contextTetris.fillRect(col * squareSize, row * squareSize, squareSize - 1, squareSize - 1);
+        }
+      }
+    }
 
     if (tetramino) {
       if (count++ > difficult) {
         tetramino.row++;
         count = 0;
       }
-    }
 
-    contextTetris.fillStyle = colors[tetramino.name];
+      if (!isValidPos(tetramino.matrix, tetramino.row, tetramino.col, playArea)) {
+        tetramino.row--;
+        placeTetramino();
+      }
 
-    for (let row = 0; row < tetramino.matrix.length; row++) {
-      for (let col = 0; col < tetramino.matrix[row].length; col++) {
-        if (tetramino.matrix[row][col]) {
-          contextTetris.fillRect((tetramino.col + col) * squareSize, (tetramino.row + row) * squareSize, squareSize - 1, squareSize - 1);
+      contextTetris.fillStyle = colors[tetramino.name];
+
+      for (let row = 0; row < tetramino.matrix.length; row++) {
+        for (let col = 0; col < tetramino.matrix[row].length; col++) {
+          if (tetramino.matrix[row][col]) {
+            contextTetris.fillRect((tetramino.col + col) * squareSize, (tetramino.row + row) * squareSize, squareSize - 1, squareSize - 1);
+          }
         }
       }
     }
   }
+
+  document.addEventListener('keydown', (e) => {
+    if (isGameOver) {
+      return
+    }
+    if (e.code == 'KeyS') {
+      rapidFallOnDawn(tetramino, playArea, placeTetramino);
+    }
+  })
 
   startBtn.addEventListener('click', () => {
     requestAnimationId = requestAnimationFrame(game);
