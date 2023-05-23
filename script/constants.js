@@ -12,7 +12,7 @@ export const gameContent = `        <canvas width='320' height='640' id='game-te
                                     <div class="game-info">
                                       <div class="info-next">
                                         <p class="next-title">Next</p>
-                                        <div class="tetramino">
+                                        <div class="tetromino tetromino-i">
                                           <span></span>
                                           <span></span>
                                           <span></span>

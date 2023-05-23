@@ -1,7 +1,7 @@
 import { colors, container, gameOver, tetraminoItems } from './constants.js'
 import { createStartMenu } from './startMenu.js'
 import { gameContent } from './constants.js'
-import { isValidPos, rapidFallOnDawn, showOverlay, shuffle } from './utils.js'
+import { isValidPos, moveOnClickLeft, moveOnClickRight, rapidFallOnDawn, rotateOnClickBackspace, showNextTetromino, showOverlay, shuffle } from './utils.js'
 
 const app = (difficult) => {
   container.innerHTML = '';
@@ -10,6 +10,7 @@ const app = (difficult) => {
   const canvasTetris = document.getElementById('game-tetris');
   const contextTetris = canvasTetris.getContext('2d');
   const startBtn = document.querySelector('.start');
+  const scoreView = document.querySelector('.score');
   const squareSize = 32;
   let tetrminoOrder = [];
   let playArea = [];
@@ -28,6 +29,8 @@ const app = (difficult) => {
   let requestAnimationId = null;
 
   const showGameOver = () => {
+    cancelAnimationFrame(requestAnimationId);
+    isGameOver = true;
     container.insertAdjacentHTML('beforeend', gameOver);
     showOverlay();
   }
@@ -62,11 +65,25 @@ const app = (difficult) => {
         }
       }
     }
+
+    for (let row = playArea.length - 1; row > 0;) {
+      if (playArea[row].every(cell => !!cell)) {
+        for (let r = row; r >= 0; r--) {
+          for (let col = 0; col < playArea[r].length; col++) {
+            playArea[r][col] = playArea[r - 1][col]
+          }
+        }
+        scoreView.innerHTML = score += 5;
+      } else {
+        row--
+      }
+    }
+
     tetramino = createTetramino();
   }
 
   const game = () => {
-
+    showNextTetromino(tetrminoOrder[tetrminoOrder.length - 1]);
     requestAnimationId = requestAnimationFrame(game);
     contextTetris.clearRect(0, 0, canvasTetris.clientWidth, canvasTetris.height);
 
@@ -109,6 +126,16 @@ const app = (difficult) => {
     }
     if (e.code == 'KeyS') {
       rapidFallOnDawn(tetramino, playArea, placeTetramino);
+    }
+    if (e.code == 'Space') {
+      e.preventDefault();
+      rotateOnClickBackspace(tetramino, playArea);
+    }
+    if (e.code == 'KeyA') {
+      moveOnClickLeft(tetramino, playArea);
+    }
+    if (e.code == 'KeyD') {
+      moveOnClickRight(tetramino, playArea);
     }
   })
 
