@@ -1,4 +1,4 @@
-.game-over {
+.game-pause {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,15 +16,15 @@
   text-align: center;
   z-index: 2;
 }
-.game-over__title {
+.game-pause__title {
   color: white;
   font-size: 50px;
 }
-.game-over__new-game {
-  background: #0EC518;
+.game-pause__continue {
+  background: #FFC334;
   border: 3px solid #fff;
   border-radius: 30%;
-  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
   cursor: pointer;
   display: inline-block;
   height: 5vw;
@@ -32,6 +32,6 @@
   transition: all 0.3s ease-out;
   font-size: 1.5rem;
 }
-.game-over__new-game:hover {
+.game-pause__continue:hover {
   transform: scale(1.1);
-}/*# sourceMappingURL=gameOver.css.map */
+}/*# sourceMappingURL=gamePause.css.map */

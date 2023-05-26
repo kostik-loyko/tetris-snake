@@ -9,7 +9,7 @@ export const createStartMenu = (app) => {
   const normalBtn = document.querySelector('.normal');
   const hardBtn = document.querySelector('.hard');
 
-  easyBtn.addEventListener('click', () => app(35));
-  normalBtn.addEventListener('click', () => app(15));
-  hardBtn.addEventListener('click', () => app(5));
+  easyBtn.addEventListener('click', () => app(30));
+  normalBtn.addEventListener('click', () => app(25));
+  hardBtn.addEventListener('click', () => app(15));
 }

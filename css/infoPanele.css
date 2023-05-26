@@ -1,0 +1,81 @@
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.next-title {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.info-score {
+  width: 150px;
+  height: 100px;
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.score-title {
+  text-align: center;
+}
+
+.score {
+  text-align: center;
+}
+
+.info-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.start {
+  background: #0EC518;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 4.5vw;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+}
+.start:hover {
+  transform: scale(1.1);
+}
+
+.pause {
+  background: #0EC518;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 4.5vw;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+}
+.pause:hover {
+  transform: scale(1.1);
+}
+
+.restart {
+  background: #FFC334;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 4.5vw;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+}
+.restart:hover {
+  transform: scale(1.1);
+}/*# sourceMappingURL=infoPanele.css.map */

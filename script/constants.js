@@ -1,18 +1,24 @@
 export const startMenu = `<div class="game-menu">
-                            <button class="menu-btn easy">Easy</button>
-                            <button class="menu-btn normal">Normal</button>
-                            <button class="menu-btn hard">Hard</button>
+                            <button class="menu-btn easy btn-green">Easy</button>
+                            <button class="menu-btn normal btn-yellow">Normal</button>
+                            <button class="menu-btn hard btn-red">Hard</button>
                           </div>`;
 
 export const gameOver = `<div class="game-over">
                             <b class="game-over__title">game over</b>
+                            <button class="game-over__new-game">new game</button>
+                         </div>`;
+
+export const gamePause = `<div class="game-pause">
+                            <b class="game-pause__title">pause</b>
+                            <button class="game-pause__continue">continue</button>
                          </div>`;
 
 export const gameContent = `        <canvas width='320' height='640' id='game-tetris'></canvas>
                                     <div class="game-info">
                                       <div class="info-next">
                                         <p class="next-title">Next</p>
-                                        <div class="tetromino tetromino-i">
+                                        <div class="tetromino">
                                           <span></span>
                                           <span></span>
                                           <span></span>

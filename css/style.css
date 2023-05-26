@@ -1,46 +1,3 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  text-decoration: inherit;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.container-game {
-  display: flex;
-  place-items: center;
-}
-
-.overlay {
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0.3;
-  background-color: black;
-}
-
 .settings {
   position: absolute;
   width: 50px;
@@ -60,30 +17,143 @@ body {
   height: 100%;
 }
 
-#game-tetris {
-  border: 2px solid black;
+.game-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.btn-red {
+  background: #E53030;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(65, 8, 8, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 7vw;
+  width: 14vw;
+  transition: all 0.3s ease-out;
+  font-size: 1.5rem;
+}
+.btn-red:hover {
+  transform: scale(1.1);
+}
+
+.btn-green {
+  background: #0EC518;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 7vw;
+  width: 14vw;
+  transition: all 0.3s ease-out;
+  font-size: 1.5rem;
+}
+.btn-green:hover {
+  transform: scale(1.1);
+}
+
+.btn-yellow {
+  background: #FFC334;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 7vw;
+  width: 14vw;
+  transition: all 0.3s ease-out;
+  font-size: 1.5rem;
+}
+.btn-yellow:hover {
+  transform: scale(1.1);
 }
 
 .game-over {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translateX(-50%);
   width: 400px;
   height: 300px;
+  border-radius: 10px;
   background-color: black;
+  border: 3px solid white;
   text-align: center;
+  z-index: 2;
 }
 .game-over__title {
   color: white;
   font-size: 50px;
+}
+.game-over__new-game {
+  background: #0EC518;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 5vw;
+  width: 17vw;
+  transition: all 0.3s ease-out;
+  font-size: 1.5rem;
+}
+.game-over__new-game:hover {
+  transform: scale(1.1);
+}
+
+.game-pause {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 300px;
+  border-radius: 10px;
+  background-color: black;
+  border: 3px solid white;
+  text-align: center;
+  z-index: 2;
+}
+.game-pause__title {
+  color: white;
+  font-size: 50px;
+}
+.game-pause__continue {
+  background: #FFC334;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 5vw;
+  width: 17vw;
+  transition: all 0.3s ease-out;
+  font-size: 1.5rem;
+}
+.game-pause__continue:hover {
+  transform: scale(1.1);
 }
 
 .tetromino {
   position: relative;
   width: 150px;
   height: 200px;
-  border: 2px solid black;
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .tetromino span {
@@ -93,145 +163,326 @@ body {
 }
 
 /* I */
-.tetromino-i {
-  padding-top: 15px;
-}
-
 .tetromino-i span {
   background-color: cyan;
+  margin-left: 56px;
+}
+
+.tetromino-i span:first-child {
+  margin-top: 35px;
 }
 
 .tetromino-i span:not(:last-child) {
-  margin-left: 10px;
   margin-bottom: 1px;
 }
 
 /* J */
-.tetromino-j {
-  padding-left: 22px;
-}
-
 .tetromino-j span {
+  position: absolute;
   background-color: blue;
 }
 
-.tetromino-j span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-j span:first-child {
+  left: 27px;
+  top: 62px;
+}
+
+.tetromino-j span:nth-child(2) {
+  left: 27px;
+  top: 94px;
+}
+
+.tetromino-j span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-j span:last-child {
-  position: absolute;
-  bottom: 1px;
-  left: -10.6px;
+  left: 90.5px;
+  top: 94px;
 }
 
 /* S */
 .tetromino-s span {
+  position: absolute;
   background-color: green;
 }
 
-.tetromino-s span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-s span:first-child {
+  left: 59px;
+  top: 62px;
 }
 
-.tetromino-s span:first-child {
-  position: absolute;
-  right: -31.8px;
-  top: 0;
+.tetromino-s span:nth-child(2) {
+  left: 27px;
+  top: 94px;
+}
+
+.tetromino-s span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-s span:last-child {
-  position: absolute;
-  left: -31.8px;
-  bottom: 1px;
+  left: 90.5px;
+  top: 62px;
 }
 
 /* L */
-.tetromino-l {
-  padding-right: 22px;
-}
-
 .tetromino-l span {
+  position: absolute;
   background-color: orange;
 }
 
-.tetromino-l span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-l span:first-child {
+  left: 91px;
+  top: 94px;
+}
+
+.tetromino-l span:nth-child(2) {
+  left: 27px;
+  top: 94px;
+}
+
+.tetromino-l span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-l span:last-child {
-  position: absolute;
-  bottom: 1px;
-  right: -10.6px;
+  left: 90.5px;
+  top: 62px;
 }
 
 /* O */
-.tetromino-o {
-  padding-right: 22px;
-}
-
 .tetromino-o span {
+  position: absolute;
   background-color: yellow;
 }
 
 .tetromino-o span:first-child {
-  position: absolute;
-  right: -11px;
-  top: 0;
+  left: 76.5px;
+  top: 94px;
 }
 
 .tetromino-o span:nth-child(2) {
-  margin-bottom: 1px;
+  left: 44px;
+  top: 62px;
 }
 
 .tetromino-o span:nth-child(3) {
-  margin-bottom: 1px;
+  left: 44px;
+  top: 94px;
 }
 
 .tetromino-o span:last-child {
-  position: absolute;
-  bottom: 1px;
-  right: -11px;
+  left: 76.5px;
+  top: 62px;
 }
 
 /* Z */
 .tetromino-z span {
+  position: absolute;
   background-color: red;
 }
 
-.tetromino-z span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-z span:first-child {
+  left: 91px;
+  top: 94px;
 }
 
-.tetromino-z span:first-child {
-  position: absolute;
-  left: -31.8px;
-  top: 0;
+.tetromino-z span:nth-child(2) {
+  left: 27px;
+  top: 62px;
+}
+
+.tetromino-z span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-z span:last-child {
-  position: absolute;
-  right: -31.8px;
-  bottom: 1px;
+  left: 59px;
+  top: 62px;
 }
 
 /* T */
 .tetromino-t span {
+  position: absolute;
   background-color: purple;
 }
 
-.tetromino-t span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-t span:first-child {
+  left: 91px;
+  top: 94px;
+}
+
+.tetromino-t span:nth-child(2) {
+  left: 27px;
+  top: 94px;
 }
 
 .tetromino-t span:nth-child(3) {
-  position: absolute;
-  left: -31.8px;
-  bottom: 0;
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-t span:last-child {
+  left: 59px;
+  top: 62px;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.next-title {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.info-score {
+  width: 150px;
+  height: 100px;
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.score-title {
+  text-align: center;
+}
+
+.score {
+  text-align: center;
+}
+
+.info-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.start {
+  background: #0EC518;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 4.5vw;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+}
+.start:hover {
+  transform: scale(1.1);
+}
+
+.pause {
+  background: #0EC518;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 4.5vw;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+}
+.pause:hover {
+  transform: scale(1.1);
+}
+
+.restart {
+  background: #FFC334;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 4.5vw;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+}
+.restart:hover {
+  transform: scale(1.1);
+}
+
+@font-face {
+  src: url("../assets/fonts/Sonic 1 Title Screen Filled.ttf");
+  font-family: "Sonic";
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  font-family: Sonic, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: white;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  text-decoration: inherit;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: url("../assets/image/back.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container-game {
+  display: flex;
+  height: 95vh;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.overlay {
+  display: none;
   position: absolute;
-  right: -31.8px;
-  bottom: 1px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background-color: black;
+}
+
+#game-tetris {
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
 }/*# sourceMappingURL=style.css.map */

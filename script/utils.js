@@ -47,6 +47,10 @@ export const showOverlay = () => {
   const overlay = document.querySelector('.overlay');
   overlay.style.display = 'block';
 }
+export const removeOverlay = () => {
+  const overlay = document.querySelector('.overlay');
+  overlay.style.display = 'none';
+}
 
 export const rotateOnClickBackspace = (tetramino, playArea) => {
   const matrix = rotate(tetramino.matrix);
@@ -64,6 +68,11 @@ export const moveOnClickLeft = (tetramino, playArea) => {
   const col = tetramino.col - 1;
   if (isValidPos(tetramino.matrix, tetramino.row, col, playArea)) {
     tetramino.col = col;
+  }
+}
+export const removeElement = (selector) => {
+  if (selector) {
+    document.querySelector(selector).remove();
   }
 }
 

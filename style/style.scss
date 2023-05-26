@@ -1,8 +1,21 @@
+@import 'startSettings.scss';
+@import 'gameOver.scss';
+@import 'gamePause.scss';
+@import 'tetraminoNext.scss';
+@import 'infoPanele.scss';
+
+@font-face {
+  src: url("../assets/fonts/Sonic\ 1\ Title\ Screen\ Filled.ttf");
+  font-family: "Sonic";
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Sonic, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  color: white;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,6 +27,11 @@ a {
   text-decoration: inherit;
 }
 
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -22,7 +40,14 @@ body {
   min-height: 100vh;
 }
 
-.wrapper {}
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: url('../assets/image/back.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
 
 .container {
   max-width: 1280px;
@@ -32,7 +57,10 @@ body {
 
 .container-game {
   display: flex;
-  place-items: center;
+  height: 95vh;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
 }
 
 .overlay {
@@ -44,6 +72,8 @@ body {
   background-color: black;
 }
 
-@import 'startSettings.scss';
-@import 'gameOver.scss';
-@import 'tetraminoNext.scss';
+#game-tetris {
+  border: 2px solid white;
+  background-color: rgb(0, 0, 0, 0.7);
+  border-radius: 10px;
+}

@@ -1,7 +1,7 @@
-import { colors, container, gameOver, tetraminoItems } from './constants.js'
+import { colors, container, gameOver, gamePause, tetraminoItems } from './constants.js'
 import { createStartMenu } from './startMenu.js'
 import { gameContent } from './constants.js'
-import { isValidPos, moveOnClickLeft, moveOnClickRight, rapidFallOnDawn, rotateOnClickBackspace, showNextTetromino, showOverlay, shuffle } from './utils.js'
+import { isValidPos, moveOnClickLeft, moveOnClickRight, rapidFallOnDawn, removeElement, removeOverlay, rotateOnClickBackspace, showNextTetromino, showOverlay, shuffle } from './utils.js'
 
 const app = (difficult) => {
   container.innerHTML = '';
@@ -10,6 +10,8 @@ const app = (difficult) => {
   const canvasTetris = document.getElementById('game-tetris');
   const contextTetris = canvasTetris.getContext('2d');
   const startBtn = document.querySelector('.start');
+  const pauseBtn = document.querySelector('.pause');
+  const restartBtn = document.querySelector('.restart');
   const scoreView = document.querySelector('.score');
   const squareSize = 32;
   let tetrminoOrder = [];
@@ -26,6 +28,7 @@ const app = (difficult) => {
   let tetramino = createTetramino();
   let score = 0;
   let isGameOver = false;
+  let isBlockKye = false;
   let requestAnimationId = null;
 
   const showGameOver = () => {
@@ -33,6 +36,25 @@ const app = (difficult) => {
     isGameOver = true;
     container.insertAdjacentHTML('beforeend', gameOver);
     showOverlay();
+    const newGameBtn = document.querySelector('.game-over__new-game');
+
+    newGameBtn.addEventListener('click', () => {
+      createStartMenu(app);
+      removeOverlay();
+    });
+  }
+  const showPause = () => {
+    container.insertAdjacentHTML('beforeend', gamePause);
+    showOverlay();
+    const continueBtn = document.querySelector('.game-pause__continue');
+
+    continueBtn.addEventListener('click', () => {
+      requestAnimationId = requestAnimationFrame(game);
+      isBlockKye = false;
+      startBtn.disabled = true;
+      removeElement('.game-pause');
+      removeOverlay();
+    });
   }
 
   function createTetramino() {
@@ -124,11 +146,13 @@ const app = (difficult) => {
     if (isGameOver) {
       return
     }
+    if (isBlockKye) {
+      return
+    }
     if (e.code == 'KeyS') {
       rapidFallOnDawn(tetramino, playArea, placeTetramino);
     }
     if (e.code == 'Space') {
-      e.preventDefault();
       rotateOnClickBackspace(tetramino, playArea);
     }
     if (e.code == 'KeyA') {
@@ -137,11 +161,23 @@ const app = (difficult) => {
     if (e.code == 'KeyD') {
       moveOnClickRight(tetramino, playArea);
     }
-  })
+  });
 
   startBtn.addEventListener('click', () => {
     requestAnimationId = requestAnimationFrame(game);
-  })
+    startBtn.disabled = true;
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    cancelAnimationFrame(requestAnimationId);
+    isBlockKye = true;
+    showPause();
+    startBtn.disabled = false;
+  });
+  restartBtn.addEventListener('click', () => {
+    cancelAnimationFrame(requestAnimationId);
+    createStartMenu(app);
+  });
 }
 
 createStartMenu(app);

@@ -1,0 +1,66 @@
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.next-title {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.info-score {
+  width: 150px;
+  height: 100px;
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0, 0.7);
+}
+
+.score-title {
+  text-align: center;
+}
+
+.score {
+  text-align: center;
+}
+
+.info-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+$yellow: #FFC334;
+$red: #E53030;
+$green: #0EC518;
+
+@mixin round-button($baseColor: $yellow, $hoverBaseColor: #333, $diameter: 4.5vw) {
+  background: $baseColor;
+  border: 3px solid #fff;
+  border-radius: 30%;
+  box-shadow: 0 -2px 0 3px darken($baseColor, 10%) inset, 0 5px 5px rgba(darken($baseColor, 40%), 0.17), 0 15px rgba(#fff, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: $diameter;
+  width: 12vw;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.start {
+  @include round-button($green);
+}
+
+.pause {
+  @include round-button($green);
+}
+
+.restart {
+  @include round-button($yellow);
+}

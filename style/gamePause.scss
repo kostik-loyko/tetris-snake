@@ -1,6 +1,6 @@
-$green: #0EC518;
+$yellow: #FFC334;
 
-@mixin round-button($baseColor: $green, $hoverBaseColor: #333, $diameter: 5vw) {
+@mixin round-button($baseColor: $yellow, $hoverBaseColor: #333, $diameter: 5vw) {
   background: $baseColor;
   border: 3px solid #fff;
   border-radius: 30%;
@@ -13,7 +13,7 @@ $green: #0EC518;
   font-size: 1.5rem;
 }
 
-.game-over {
+.game-pause {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,11 +36,12 @@ $green: #0EC518;
     font-size: 50px;
   }
 
-  &__new-game {
-    @include round-button($green);
+  &__continue {
+    @include round-button($yellow);
 
     &:hover {
       transform: scale(1.1);
     }
   }
+
 }

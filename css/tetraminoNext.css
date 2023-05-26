@@ -2,7 +2,9 @@
   position: relative;
   width: 150px;
   height: 200px;
-  border: 2px solid black;
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .tetromino span {
@@ -12,12 +14,13 @@
 }
 
 /* I */
-.tetromino-i {
-  padding-top: 15px;
-}
-
 .tetromino-i span {
   background-color: cyan;
+  margin-left: 56px;
+}
+
+.tetromino-i span:first-child {
+  margin-top: 35px;
 }
 
 .tetromino-i span:not(:last-child) {
@@ -25,131 +28,157 @@
 }
 
 /* J */
-.tetromino-j {
-  padding-left: 22px;
-}
-
 .tetromino-j span {
+  position: absolute;
   background-color: blue;
 }
 
-.tetromino-j span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-j span:first-child {
+  left: 27px;
+  top: 62px;
+}
+
+.tetromino-j span:nth-child(2) {
+  left: 27px;
+  top: 94px;
+}
+
+.tetromino-j span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-j span:last-child {
-  position: absolute;
-  bottom: 1px;
-  left: -10.6px;
+  left: 90.5px;
+  top: 94px;
 }
 
 /* S */
 .tetromino-s span {
+  position: absolute;
   background-color: green;
 }
 
-.tetromino-s span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-s span:first-child {
+  left: 59px;
+  top: 62px;
 }
 
-.tetromino-s span:first-child {
-  position: absolute;
-  right: -31.8px;
-  top: 0;
+.tetromino-s span:nth-child(2) {
+  left: 27px;
+  top: 94px;
+}
+
+.tetromino-s span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-s span:last-child {
-  position: absolute;
-  left: -31.8px;
-  bottom: 1px;
+  left: 90.5px;
+  top: 62px;
 }
 
 /* L */
-.tetromino-l {
-  padding-right: 22px;
-}
-
 .tetromino-l span {
+  position: absolute;
   background-color: orange;
 }
 
-.tetromino-l span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-l span:first-child {
+  left: 91px;
+  top: 94px;
+}
+
+.tetromino-l span:nth-child(2) {
+  left: 27px;
+  top: 94px;
+}
+
+.tetromino-l span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-l span:last-child {
-  position: absolute;
-  bottom: 1px;
-  right: -10.6px;
+  left: 90.5px;
+  top: 62px;
 }
 
 /* O */
-.tetromino-o {
-  padding-right: 22px;
-}
-
 .tetromino-o span {
+  position: absolute;
   background-color: yellow;
 }
 
 .tetromino-o span:first-child {
-  position: absolute;
-  right: -11px;
-  top: 0;
+  left: 76.5px;
+  top: 94px;
 }
 
 .tetromino-o span:nth-child(2) {
-  margin-bottom: 1px;
+  left: 44px;
+  top: 62px;
 }
 
 .tetromino-o span:nth-child(3) {
-  margin-bottom: 1px;
+  left: 44px;
+  top: 94px;
 }
 
 .tetromino-o span:last-child {
-  position: absolute;
-  bottom: 1px;
-  right: -11px;
+  left: 76.5px;
+  top: 62px;
 }
 
 /* Z */
 .tetromino-z span {
+  position: absolute;
   background-color: red;
 }
 
-.tetromino-z span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-z span:first-child {
+  left: 91px;
+  top: 94px;
 }
 
-.tetromino-z span:first-child {
-  position: absolute;
-  left: -31.8px;
-  top: 0;
+.tetromino-z span:nth-child(2) {
+  left: 27px;
+  top: 62px;
+}
+
+.tetromino-z span:nth-child(3) {
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-z span:last-child {
-  position: absolute;
-  right: -31.8px;
-  bottom: 1px;
+  left: 59px;
+  top: 62px;
 }
 
 /* T */
 .tetromino-t span {
+  position: absolute;
   background-color: purple;
 }
 
-.tetromino-t span:not(:last-child) {
-  margin-bottom: 1px;
+.tetromino-t span:first-child {
+  left: 91px;
+  top: 94px;
+}
+
+.tetromino-t span:nth-child(2) {
+  left: 27px;
+  top: 94px;
 }
 
 .tetromino-t span:nth-child(3) {
-  position: absolute;
-  left: -31.8px;
-  bottom: 0;
+  left: 59px;
+  top: 94px;
 }
 
 .tetromino-t span:last-child {
-  position: absolute;
-  right: -31.8px;
-  bottom: 1px;
+  left: 59px;
+  top: 62px;
 }/*# sourceMappingURL=tetraminoNext.css.map */
