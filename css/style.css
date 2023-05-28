@@ -516,7 +516,7 @@ body {
 
 .container-game {
   display: flex;
-  height: 94vh;
+  height: 93vh;
   justify-content: center;
   align-items: center;
   gap: 5%;
