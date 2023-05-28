@@ -16,11 +16,11 @@ const app = (difficult) => {
   const scoreView = document.querySelector('.score');
 
   const soundMove = new Audio();
-  soundMove.src = '../assets/sound/move.mp3';
+  soundMove.src = './assets/sound/move.mp3';
   const soundOver = new Audio();
-  soundOver.src = '../assets/sound/game-over.mp3';
+  soundOver.src = './assets/sound/game-over.mp3';
   const soundClear = new Audio();
-  soundClear.src = '../assets/sound/stage-clear.mp3';
+  soundClear.src = './assets/sound/stage-clear.mp3';
 
   const squareSize = 32;
   let tetrminoOrder = [];
