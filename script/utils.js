@@ -72,7 +72,9 @@ export const moveOnClickLeft = (tetramino, playArea) => {
 }
 export const removeElement = (selector) => {
   if (selector) {
-    document.querySelector(selector).remove();
+    document.querySelectorAll(selector).forEach(element => {
+      element.remove();
+    });
   }
 }
 

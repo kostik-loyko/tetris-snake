@@ -414,6 +414,12 @@
   transform: scale(1.1);
 }
 
+#snake-canvas {
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
 @font-face {
   src: url("../assets/fonts/Sonic 1 Title Screen Filled.ttf");
   font-family: "Sonic";
@@ -466,7 +472,7 @@ body {
 
 .container-game {
   display: flex;
-  height: 95vh;
+  height: 90vh;
   justify-content: center;
   align-items: center;
   gap: 5%;

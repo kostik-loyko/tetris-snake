@@ -2,6 +2,7 @@ import { colors, container, gameOver, gamePause, tetraminoItems } from './consta
 import { createStartMenu } from './startMenu.js'
 import { gameContent } from './constants.js'
 import { isValidPos, moveOnClickLeft, moveOnClickRight, rapidFallOnDawn, removeElement, removeOverlay, rotateOnClickBackspace, showNextTetromino, showOverlay, shuffle } from './utils.js'
+import { createSnake } from './test.js'
 
 const app = (difficult) => {
   container.innerHTML = '';
@@ -31,29 +32,62 @@ const app = (difficult) => {
   let isBlockKye = false;
   let requestAnimationId = null;
 
+  const config = {
+    step: 0,
+    maxStep: 30,
+    sizeCell: 32,
+    sizeBerry: 32 / 4
+  }
+
+  const snake = {
+    x: 160,
+    y: 160,
+    dx: config.sizeCell,
+    dy: 0,
+    tails: [],
+    maxTails: 3
+  }
+
+  let berry = {
+    x: 288,
+    y: 160
+  }
+
+  let canvasSnake = document.querySelector("#snake-canvas");
+  let contextSnake = canvasSnake.getContext("2d");
+  // scoreBlock = document.querySelector(".game-score .score-count");
+  // drawScore();
+
+  // createSnake();
+
   const showGameOver = () => {
     cancelAnimationFrame(requestAnimationId);
     isGameOver = true;
     container.insertAdjacentHTML('beforeend', gameOver);
     showOverlay();
-    const newGameBtn = document.querySelector('.game-over__new-game');
+    const newGameBtns = document.querySelectorAll('.game-over__new-game');
 
-    newGameBtn.addEventListener('click', () => {
-      createStartMenu(app);
-      removeOverlay();
+    newGameBtns.forEach(newGameBtn => {
+      newGameBtn.addEventListener('click', () => {
+        createStartMenu(app);
+        removeOverlay();
+        // window.location.reload();
+      });
     });
   }
   const showPause = () => {
     container.insertAdjacentHTML('beforeend', gamePause);
     showOverlay();
-    const continueBtn = document.querySelector('.game-pause__continue');
+    const continueBtns = document.querySelectorAll('.game-pause__continue');
 
-    continueBtn.addEventListener('click', () => {
-      requestAnimationId = requestAnimationFrame(game);
-      isBlockKye = false;
-      startBtn.disabled = true;
-      removeElement('.game-pause');
-      removeOverlay();
+    continueBtns.forEach(continueBtn => {
+      continueBtn.addEventListener('click', () => {
+        requestAnimationId = requestAnimationFrame(game);
+        isBlockKye = false;
+        startBtn.disabled = true;
+        removeElement('.game-pause');
+        removeOverlay();
+      });
     });
   }
 
@@ -95,6 +129,7 @@ const app = (difficult) => {
             playArea[r][col] = playArea[r - 1][col]
           }
         }
+        snake.maxTails++;
         scoreView.innerHTML = score += 5;
       } else {
         row--
@@ -140,6 +175,97 @@ const app = (difficult) => {
         }
       }
     }
+    //snake
+    if (++config.step < config.maxStep) {
+      return;
+    }
+    config.step = 0;
+    contextSnake.clearRect(0, 0, canvasSnake.width, canvasSnake.height);
+    drawBerry();
+    drawSnake();
+  }
+
+  function drawSnake() {
+    snake.x += snake.dx;
+    snake.y += snake.dy;
+
+    // collisionBorder();
+
+    // todo бордер
+    snake.tails.unshift({ x: snake.x, y: snake.y });
+
+    if (snake.tails.length > snake.maxTails) {
+      snake.tails.pop();
+    }
+
+    snake.tails.forEach(function (el, index) {
+      if (index == 0) {
+        contextSnake.fillStyle = "#FA0556";
+      } else {
+        contextSnake.fillStyle = "#A00034";
+      }
+      contextSnake.fillRect(el.x, el.y, config.sizeCell, config.sizeCell);
+
+      if (el.x === berry.x && el.y === berry.y && snake.tails.length > 3) {
+        snake.tails.shift({ x: snake.x, y: snake.y });
+        snake.maxTails--;
+
+        // incScore();
+        randomPositionBerry();
+      }
+
+      for (let i = index + 1; i < snake.tails.length; i++) {
+
+        if (el.x == snake.tails[i].x && el.y == snake.tails[i].y || snake.x < 0 || snake.x >= canvasSnake.width || snake.y < 0 || snake.y >= canvasSnake.height) {
+          // refreshGame();
+          return showGameOver();
+        }
+
+      }
+
+    });
+  }
+
+  // function collisionBorder() {
+  //   if () {
+  //     snake.x = canvasSnake.width - config.sizeCell;
+  //   } else if () {
+  //     snake.x = 0;
+  //   }
+
+  //   if () {
+  //     snake.y = canvasSnake.height - config.sizeCell;
+  //   } else if () {
+  //     snake.y = 0;
+  //   }
+  // }
+
+
+  function refreshGame() {
+    // score = 0;
+    // drawScore();
+
+    snake.x = 160;
+    snake.y = 160;
+    snake.tails = [];
+    snake.maxTails = 3;
+    snake.dx = config.sizeCell;
+    snake.dy = 0;
+
+    randomPositionBerry();
+  }
+  function drawBerry() {
+    contextSnake.beginPath();
+    contextSnake.fillStyle = "#A00034";
+    contextSnake.arc(berry.x + (config.sizeCell / 2), berry.y + (config.sizeCell / 2), config.sizeBerry, 0, 2 * Math.PI);
+    contextSnake.fill();
+  }
+  function randomPositionBerry() {
+    berry.x = getRandomInt(0, canvasSnake.width / config.sizeCell) * config.sizeCell;
+    berry.y = getRandomInt(0, canvasSnake.height / config.sizeCell) * config.sizeCell;
+  }
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 
   document.addEventListener('keydown', (e) => {
@@ -161,13 +287,25 @@ const app = (difficult) => {
     if (e.code == 'KeyD') {
       moveOnClickRight(tetramino, playArea);
     }
+    if (e.code == "ArrowUp") {
+      snake.dy = -config.sizeCell;
+      snake.dx = 0;
+    } else if (e.code == "ArrowLeft") {
+      snake.dx = -config.sizeCell;
+      snake.dy = 0;
+    } else if (e.code == "ArrowDown") {
+      snake.dy = config.sizeCell;
+      snake.dx = 0;
+    } else if (e.code == "ArrowRight") {
+      snake.dx = config.sizeCell;
+      snake.dy = 0;
+    }
   });
 
   startBtn.addEventListener('click', () => {
     requestAnimationId = requestAnimationFrame(game);
     startBtn.disabled = true;
   });
-
   pauseBtn.addEventListener('click', () => {
     cancelAnimationFrame(requestAnimationId);
     isBlockKye = true;

@@ -34,7 +34,8 @@ export const gameContent = `        <canvas width='320' height='640' id='game-te
                                         <button class="info-btn pause">Pause</button>
                                         <button class="info-btn restart">Restart</button>
                                       </div>
-                                    </div>`
+                                    </div>
+                                    <canvas id="snake-canvas" width="480" height="600"></canvas>`
 
 export const container = document.querySelector('.container-game');
 

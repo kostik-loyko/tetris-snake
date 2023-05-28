@@ -3,6 +3,7 @@
 @import 'gamePause.scss';
 @import 'tetraminoNext.scss';
 @import 'infoPanele.scss';
+@import 'snake.scss';
 
 @font-face {
   src: url("../assets/fonts/Sonic\ 1\ Title\ Screen\ Filled.ttf");
@@ -57,7 +58,7 @@ body {
 
 .container-game {
   display: flex;
-  height: 95vh;
+  height: 90vh;
   justify-content: center;
   align-items: center;
   gap: 5%;
