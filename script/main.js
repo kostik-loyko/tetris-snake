@@ -2,11 +2,11 @@ import { colors, container, gameOver, gamePause, tetraminoItems } from './consta
 import { createStartMenu } from './startMenu.js'
 import { gameContent } from './constants.js'
 import { isValidPos, moveOnClickLeft, moveOnClickRight, rapidFallOnDawn, removeElement, removeOverlay, rotateOnClickBackspace, showNextTetromino, showOverlay, shuffle } from './utils.js'
-import { createSnake } from './test.js'
 
 const app = (difficult) => {
   container.innerHTML = '';
   container.innerHTML = gameContent;
+  document.querySelector('.settings').style.display = 'none';
 
   const canvasTetris = document.getElementById('game-tetris');
   const contextTetris = canvasTetris.getContext('2d');
@@ -14,6 +14,14 @@ const app = (difficult) => {
   const pauseBtn = document.querySelector('.pause');
   const restartBtn = document.querySelector('.restart');
   const scoreView = document.querySelector('.score');
+
+  const soundMove = new Audio();
+  soundMove.src = '../assets/sound/move.mp3';
+  const soundOver = new Audio();
+  soundOver.src = '../assets/sound/game-over.mp3';
+  const soundClear = new Audio();
+  soundClear.src = '../assets/sound/stage-clear.mp3';
+
   const squareSize = 32;
   let tetrminoOrder = [];
   let playArea = [];
@@ -55,12 +63,9 @@ const app = (difficult) => {
 
   let canvasSnake = document.querySelector("#snake-canvas");
   let contextSnake = canvasSnake.getContext("2d");
-  // scoreBlock = document.querySelector(".game-score .score-count");
-  // drawScore();
-
-  // createSnake();
 
   const showGameOver = () => {
+    soundOver.play();
     cancelAnimationFrame(requestAnimationId);
     isGameOver = true;
     container.insertAdjacentHTML('beforeend', gameOver);
@@ -69,9 +74,9 @@ const app = (difficult) => {
 
     newGameBtns.forEach(newGameBtn => {
       newGameBtn.addEventListener('click', () => {
+        document.querySelector('.settings').style.display = 'block';
         createStartMenu(app);
         removeOverlay();
-        // window.location.reload();
       });
     });
   }
@@ -129,13 +134,13 @@ const app = (difficult) => {
             playArea[r][col] = playArea[r - 1][col]
           }
         }
+        soundClear.play();
         snake.maxTails++;
         scoreView.innerHTML = score += 5;
       } else {
         row--
       }
     }
-
     tetramino = createTetramino();
   }
 
@@ -189,9 +194,6 @@ const app = (difficult) => {
     snake.x += snake.dx;
     snake.y += snake.dy;
 
-    // collisionBorder();
-
-    // todo бордер
     snake.tails.unshift({ x: snake.x, y: snake.y });
 
     if (snake.tails.length > snake.maxTails) {
@@ -207,17 +209,16 @@ const app = (difficult) => {
       contextSnake.fillRect(el.x, el.y, config.sizeCell, config.sizeCell);
 
       if (el.x === berry.x && el.y === berry.y && snake.tails.length > 3) {
+        soundClear.play();
         snake.tails.shift({ x: snake.x, y: snake.y });
         snake.maxTails--;
-
-        // incScore();
+        scoreView.innerHTML = score += 5;
         randomPositionBerry();
       }
 
       for (let i = index + 1; i < snake.tails.length; i++) {
 
         if (el.x == snake.tails[i].x && el.y == snake.tails[i].y || snake.x < 0 || snake.x >= canvasSnake.width || snake.y < 0 || snake.y >= canvasSnake.height) {
-          // refreshGame();
           return showGameOver();
         }
 
@@ -226,34 +227,6 @@ const app = (difficult) => {
     });
   }
 
-  // function collisionBorder() {
-  //   if () {
-  //     snake.x = canvasSnake.width - config.sizeCell;
-  //   } else if () {
-  //     snake.x = 0;
-  //   }
-
-  //   if () {
-  //     snake.y = canvasSnake.height - config.sizeCell;
-  //   } else if () {
-  //     snake.y = 0;
-  //   }
-  // }
-
-
-  function refreshGame() {
-    // score = 0;
-    // drawScore();
-
-    snake.x = 160;
-    snake.y = 160;
-    snake.tails = [];
-    snake.maxTails = 3;
-    snake.dx = config.sizeCell;
-    snake.dy = 0;
-
-    randomPositionBerry();
-  }
   function drawBerry() {
     contextSnake.beginPath();
     contextSnake.fillStyle = "#A00034";
@@ -276,27 +249,31 @@ const app = (difficult) => {
       return
     }
     if (e.code == 'KeyS') {
-      rapidFallOnDawn(tetramino, playArea, placeTetramino);
+      rapidFallOnDawn(tetramino, playArea, placeTetramino, soundMove);
     }
     if (e.code == 'Space') {
-      rotateOnClickBackspace(tetramino, playArea);
+      rotateOnClickBackspace(tetramino, playArea, soundMove);
     }
     if (e.code == 'KeyA') {
-      moveOnClickLeft(tetramino, playArea);
+      moveOnClickLeft(tetramino, playArea, soundMove);
     }
     if (e.code == 'KeyD') {
-      moveOnClickRight(tetramino, playArea);
+      moveOnClickRight(tetramino, playArea, soundMove);
     }
     if (e.code == "ArrowUp") {
+      soundMove.play();
       snake.dy = -config.sizeCell;
       snake.dx = 0;
     } else if (e.code == "ArrowLeft") {
+      soundMove.play();
       snake.dx = -config.sizeCell;
       snake.dy = 0;
     } else if (e.code == "ArrowDown") {
+      soundMove.play();
       snake.dy = config.sizeCell;
       snake.dx = 0;
     } else if (e.code == "ArrowRight") {
+      soundMove.play();
       snake.dx = config.sizeCell;
       snake.dy = 0;
     }
@@ -315,6 +292,13 @@ const app = (difficult) => {
   restartBtn.addEventListener('click', () => {
     cancelAnimationFrame(requestAnimationId);
     createStartMenu(app);
+    document.querySelector('.settings').style.display = 'block';
+    for (let row = -2; row < 20; row++) {
+      playArea[row] = [];
+      for (let col = 0; col < 10; col++) {
+        playArea[row][col] = 0;
+      }
+    }
   });
 }
 

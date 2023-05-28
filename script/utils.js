@@ -33,7 +33,8 @@ export const isValidPos = (tetramino, tetraminoRow, tetraminoCol, playArea) => {
   return true;
 }
 
-export const rapidFallOnDawn = (tetramino, playArea, placeTetramino) => {
+export const rapidFallOnDawn = (tetramino, playArea, placeTetramino, sound) => {
+  sound.play();
   const row = tetramino.row + 1;
   if (!isValidPos(tetramino.matrix, row, tetramino.col, playArea)) {
     tetramino.row = row - 1;
@@ -52,19 +53,22 @@ export const removeOverlay = () => {
   overlay.style.display = 'none';
 }
 
-export const rotateOnClickBackspace = (tetramino, playArea) => {
+export const rotateOnClickBackspace = (tetramino, playArea, sound) => {
+  sound.play();
   const matrix = rotate(tetramino.matrix);
   if (isValidPos(matrix, tetramino.row, tetramino.col, playArea)) {
     tetramino.matrix = matrix;
   }
 }
-export const moveOnClickRight = (tetramino, playArea) => {
+export const moveOnClickRight = (tetramino, playArea, sound) => {
+  sound.play();
   const col = tetramino.col + 1;
   if (isValidPos(tetramino.matrix, tetramino.row, col, playArea)) {
     tetramino.col = col;
   }
 }
-export const moveOnClickLeft = (tetramino, playArea) => {
+export const moveOnClickLeft = (tetramino, playArea, sound) => {
+  sound.play();
   const col = tetramino.col - 1;
   if (isValidPos(tetramino.matrix, tetramino.row, col, playArea)) {
     tetramino.col = col;
