@@ -57,8 +57,8 @@ const app = (difficult) => {
   }
 
   let berry = {
-    x: 288,
-    y: 160
+    x: 224,
+    y: 288
   }
 
   let canvasSnake = document.querySelector("#snake-canvas");
